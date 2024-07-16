@@ -24,4 +24,15 @@ export const routes: Routes = [
     {
         path:'', redirectTo:'home', pathMatch: 'full'
     }
+    ,{path:'teacher',
+      loadChildren:()=>import('./teacher/teacher.module').then(t=>t.TeacherModule)
+  },
+    {
+      path:'student',
+      loadChildren:()=>import('./student/student.module').then(s=>s.StudentModule)
+    },
+    {
+      path:'admin',
+      loadChildren:()=>import('./admin/admin.module').then(a=>a.AdminModule)
+    }
 ];
