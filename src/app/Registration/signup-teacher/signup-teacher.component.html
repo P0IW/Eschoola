@@ -1,1 +1,38 @@
-<p>signup-teacher works!</p>
+<form class="flex justify-center mt-6">
+    <label>First Name</label>
+    <input type="text" formControlName="firstName">
+  
+    <label>Last Name</label>
+    <input type="text" formControlName="lastName">
+  
+  
+    <label>Type of Job</label>
+    <select formControlName="typeOfJob">
+      <option value="teacher">Teacher</option>
+      <option value="instructor">Instructor</option>
+      <option value="professor">Professor</option>
+    </select>
+  
+    <label>Category</label>
+    <select formControlName="category">
+      <option></option>
+    </select>
+  
+    <label>Skills</label>
+    <select formControlName="skills">
+      <option></option>
+    </select>
+  
+    <label>Experience</label>
+    <select formControlName="experience">
+      <option></option>
+    </select>
+  
+    <label>Proof File</label>
+    <input type="file" formControlName="proofFile">
+  
+    <button type="submit" class="btn bg-[#ffa500] w-full rounded-xl text-white text-lg px-4 py-[6px]">
+      Create my Account
+    </button>
+  </form>
+  
