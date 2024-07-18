@@ -1,89 +1,112 @@
+<header>
+    <h1>Escholla</h1>
+</header>
+
+
 <div class="flex justify-center items-center flex-col h-screen">
-    <h1 class="text-3xl my-[35px] font-bold" style="font-family: 'Atkinson Hyperlegible', sans-serif">Sign up to learn more</h1>
+    <h1 class="text-3xl my-[35px] font-bold" style="font-family: 'Atkinson Hyperlegible', sans-serif">Sign up as a Student</h1>
 
-    <div class="flex justify-center">
-        <button class="btn bg-[#1976d2] w-[400px] rounded-xl text-white text-lg px-4 py-[6px] relative" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-            <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="h-6 mr-2 bg-white z-1 rounded-sm">
-                    <path fill="#ffc107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917"/><path fill="#ff3d00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691"/><path fill="#4caf50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44"/><path fill="#1976d2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917"/>
-                </svg>
-                <span class="flex-1">Continue with Google</span>
-            </div>
-        </button>
-    </div>
-
-    <div class="flex items-center justify-center mt-8 mb-6">
-        <div class="w-[550px] flex items-center">
-            <div class="flex-grow border-t border-gray-300"></div>
-            <span class="mx-4 text-gray-500" style="font-family: 'Atkinson Hyperlegible', sans-serif">or</span>
-            <div class="flex-grow border-t border-gray-300"></div>
-        </div>
-    </div>
-
-    <div class="w-[550px]">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="w-[550px]" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <div class="flex">
+
             <div class="flex flex-col mr-4 w-full">
-                <label for="first_name">First name</label>
-                <input type="text" pInputText formControlName="firstName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="first_name" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+                <label for="firstName">First name</label>
+                <input type="text" formControlName="firstName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="firstName" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+
+                <div *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+                    <span *ngIf="signupForm.get('firstName')?.errors?.['required']">First name is required</span>
+                </div>
+    
             </div>
 
             <div class="flex flex-col w-full">
-                <label for="last_name">Last name</label>
-                <input type="text" pInputText formControlName="lastName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="last_name" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+                <label for="lastName">Last name</label>
+                <input type="text" formControlName="lastName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="lastName" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+
+                <div *ngIf="signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+                    <span *ngIf="signupForm.get('lastName')?.errors?.['required']">Last name is required</span>
+                </div>
+
             </div>
+
         </div>
 
         <div class="flex flex-col pt-6">
             <label for="username">Username</label>
-            <input type="text" pInputText formControlName="username" name="username" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            <input type="text" formControlName="username" name="username" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         </div>
 
         <div class="flex flex-col pt-6">
             <label for="email">Email</label>
-            <input type="text" pInputText formControlName="email" name="email" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            <input type="email" formControlName="email" name="email" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+        </div>
+
+        <!-- Email Error Handling -->
+        <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+            <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format</span>
         </div>
 
         <div class="flex flex-col pt-6">
             <label for="gender">Gender</label>
-            <select pInputSelect formControlName="gender" name="gender" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            <select formControlName="gender" name="gender" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="onii-chan">Onii-Chan ❤️🫶🏿</option>
             </select>
         </div>
 
         <div class="flex flex-col pt-6">
-            <label for="date_of_birth">Date of Birth</label>
-            <input type="date" pInputText formControlName="dateOfBirth" name="date_of_birth" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" formControlName="dateOfBirth" name="dateOfBirth" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         </div>
 
         <div class="flex flex-col pt-6">
             <label for="password">Password</label>
-            <input type="password" pInputText formControlName="password" name="password" class="py-[6px] pl-[15px] rounded-lg bg-gray-50 border-2 border-gray-200 w-full" placeholder="Password (8 or more characters)" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            <input type="password" formControlName="password" name="password" class="py-[6px] pl-[15px] rounded-lg bg-gray-50 border-2 border-gray-200 w-full" placeholder="Password (8 or more characters)" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+        </div>
+
+        <!-- Password Error Handling -->
+        <div *ngIf="signupError" class="text-red-500 mt-2 pl-[40px]">
+            {{ signupError }}
+        </div>
+        <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+            <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</span>
         </div>
 
         <div class="flex flex-col pt-6 w-full">
             <label class="flex items-start">
-                <input type="checkbox" name="terms_accepted" class="h-6 w-6 mr-2">
+                <input type="checkbox" formControlName="termsAccepted" name="termsAccepted" class="h-6 w-6 mr-2">
                 <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Yes, I understand and agree to the <span class="text-[#ffa500] underline">Eschoola Terms of Service</span>, including the <span class="text-[#ffa500] underline">User Agreement</span> and <span class="text-[#ffa500] underline">Privacy Policy</span>.</span>
             </label>
+
         </div>
 
         <div class="flex flex-col pt-6 w-full">
             <label class="flex items-start">
-                <input type="checkbox" name="newsletter_subscribe" class="h-[17px] w-[17px] mr-2">
+                <input type="checkbox" formControlName="newsletterSubscribe" name="newsletterSubscribe" class="h-[17px] w-[17px] mr-2">
                 <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Send me emails with tips on how to find teachers that fit my needs.</span>
             </label>
         </div>
 
-        <form class="flex justify-center mt-6">
+        <div class="flex justify-center mt-6">
             <button type="submit" class="btn bg-[#ffa500] w-full rounded-xl text-white text-lg px-4 py-[6px]" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-                Create my Account
+                Create my Student Account
             </button>
-        </form>
+        </div>
 
         <div class="flex justify-center mt-4">
-            <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Already have an account? <a href="/login" class="text-[#ffa500] underline">Log In</a></span>
+            <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Already have an account? <a routerLink="/login" class="text-[#ffa500] underline">Log In</a></span>
         </div>
+    </form>
+
+    <div *ngIf="signupError" class="text-red-500 mt-4">
+        {{ signupError }}
     </div>
+
+    <div *ngIf="signupForm.get('termsAccepted')?.invalid && signupForm.get('termsAccepted')?.dirty || signupForm.get('termsAccepted')?.touched" class="text-red-500 mt-1 pl-[40px]">
+        <span *ngIf="signupForm.get('terms')?.errors?.['required']">Please accept the Eschoola Terms of Service</span>
+    </div>
+
+
 </div>

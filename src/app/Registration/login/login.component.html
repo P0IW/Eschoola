@@ -1,19 +1,46 @@
-<div class="h-screen flex justify-center items-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-[480px] h-[600px] border-[1px] rounded-3xl">
+<div  class="h-screen flex justify-center items-center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-[480px] h-[700px] border-[1px] rounded-3xl">
         <h1 class="pt-10 pb-5 text-3xl flex justify-center font-bold" style="font-family: 'Atkinson Hyperlegible', sans-serif">Log in to Eschoola</h1>
 
         <div class="flex justify-center pt-6">
             <label for="email"></label>
             <div class="relative">
-                <input type="text" formControlName="email" class="w-[400px] py-[6px] pl-[40px] rounded-md bg-gray-50 px-4" name="email" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="Username or Email">
+                <input type="text" formControlName="email" class="w-[400px] py-[6px] pl-[40px] rounded-md bg-gray-50 border-2 border-gray-200 px-4" name="email" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="Username or Email">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
                     <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/>
                 </svg>
             </div>
         </div>
+
+        <!-- Error Handling -->
+    <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+        <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+        <span *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</span>
+    </div>
+
+        <div class="flex justify-center pt-6">
+            <label for="password"></label>
+            <div class="relative">
+                <input type="password" id="password" formControlName="password" class="w-[400px] py-[6px] pl-[40px] rounded-md border-2 border-gray-200 bg-gray-50 px-4" name="password" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="Password">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <path d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144l0 48-16 0c-35.3 0-64 28.7-64 64L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-240 0 0-48z"/>
+                </svg>
+            </div>
+        </div>
+          
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</span>
+          </div>
         
         <div class="flex justify-center pt-6">
             <button class="btn py-[6px] px-4 w-[400px] bg-[#ffa500] rounded-xl text-white font-bold text-lg" style="font-family: 'Atkinson Hyperlegible', sans-serif" type="submit">Continue</button>
+        </div>
+
+        <!-- Password Error Handling -->
+
+        <div *ngIf="loginError" class="text-red-500 mt-2 pl-[40px]">
+            {{ loginError }}
         </div>
 
         <div class="flex items-center justify-center my-8">
