@@ -6,28 +6,22 @@
 
   export const routes: Routes = [
 
-    {
-      path: '',
+    /* {
+     path: '',
       component: LayoutComponent, children: [
         { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
         { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), canActivate: [AuthGuard]},
       ]
-    },
+    },*/
 
     {
-      path: '',
-      component: AuthLayoutComponent, children: [
-        { path: '', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
-        { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent), canActivate: [AuthGuard]},
-        { path: 'login', loadComponent: () => import('./Registration/login/login.component').then(m => m.LoginComponent) },
-        { path: 'signup', loadComponent: () => import('./Registration/signup/signup.component').then(m => m.SignupComponent) },
-        { path: 'signup-teacher', loadComponent: () => import('./Registration/signup-teacher/signup-teacher.component').then(m => m.SignupTeacherComponent) },
-        { path: 'signup-student', loadComponent: () => import('./Registration/signup-student/signup-student.component').then(m => m.SignupStudentComponent) },
-      ]
-    },
+      path:'',
+      loadChildren: ()=> import ('./Registration/registration.module').then(m=>m.RegistrationModule)
+    }
+
   ];
 
-  @NgModule({               
+  @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
   })

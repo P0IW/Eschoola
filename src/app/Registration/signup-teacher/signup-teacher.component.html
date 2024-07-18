@@ -1,13 +1,10 @@
-<header>
-  <h1>Escholla</h1>
-</header>
 
 <div class="flex justify-center items-center flex-col h-screen">
   <h1 class="text-3xl my-[35px] font-bold" style="font-family: 'Atkinson Hyperlegible', sans-serif">Sign Up as a Teacher</h1>
 
   <form [formGroup]="signupTeacherForm" (ngSubmit)="onSubmit()" class="w-[550px]">
     <!-- Page 1 -->
-    
+
     <div *ngIf="currentPage === 1">
       <div class="flex flex-col w-full pt-6">
         <label for="firstName" style="font-family: 'Atkinson Hyperlegible', sans-serif">First name</label>
@@ -36,7 +33,7 @@
         <label for="phoneNum" style="font-family: 'Atkinson Hyperlegible', sans-serif">Phone Number</label>
         <input type="tel" formControlName="phoneNum" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="phoneNum">
       </div>
-      
+
       <div *ngIf="signupTeacherForm.get('phoneNum')?.touched && signupTeacherForm.get('phoneNum')?.invalid" class="text-red-500 mt-1 pl-[40px]">
         <span *ngIf="signupTeacherForm.get('phoneNum')?.errors?.['required']">Phone Number is required</span>
       </div>
@@ -79,7 +76,7 @@
     </div>
 
     <!-- Page 2 -->
-     
+
     <div *ngIf="currentPage === 2">
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <label>Type of Job</label>
@@ -97,7 +94,7 @@
       <div *ngIf="signupTeacherForm.get('typeOfJob')?.touched && signupTeacherForm.get('typeOfJob')?.invalid" class="text-red-500 mt-1 pl-[40px]">
         <span *ngIf="signupTeacherForm.get('typeOfJob')?.errors?.['required']">Type of Job is required</span>
       </div>
-      
+
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <label for="category">Category</label>
         <select formControlName="category" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
@@ -107,7 +104,7 @@
           </option>
         </select>
       </div>
-      
+
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <label>Skills</label>
         <select formControlName="skills" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
@@ -115,7 +112,7 @@
           <option *ngFor="let skill of skills" [value]="skill">{{ skill }}</option>
         </select>
       </div>
-      
+
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <label>Experience</label>
         <select formControlName="experience" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
@@ -123,7 +120,7 @@
           <option *ngFor="let exp of experienceLevels" [value]="exp">{{ exp }}</option>
         </select>
       </div>
-      
+
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <label for="proofFile" class="mb-2">Upload File</label>
         <div class="relative">
@@ -144,7 +141,7 @@
           <span class="text-sm text-green-600">File selected: {{ selectedFile.name }}</span>
         </div>
       </div>
-      
+
       <div class="flex justify-between pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <button type="button" (click)="previousPage()" class="flex items-center bg-[#ffa500] rounded-full text-white text-lg px-4 py-[6px]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="w-4 h-4 fill-current text-white transform rotate-180">

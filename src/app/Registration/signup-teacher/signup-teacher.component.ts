@@ -7,8 +7,7 @@ import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-signupTeacher',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+
   templateUrl: './signup-teacher.component.html',
   styleUrl: './signup-teacher.component.css'
 })
