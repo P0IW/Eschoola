@@ -1,7 +1,27 @@
-<div class="w-[1390px] bg-gray-800 text-white py-4">
-    <nav class="container mx-auto flex justify-between">
-      <a href="/home" class="px-4">Home</a>
-      <a href="/about" class="px-4">About</a>
-      <a href="/support" class="px-4">Support</a>
+<header class="bg-white pt-6" style="font-family: 'Quicksand', sans-serif">
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <h1 class="text-3xl font-bold text-orange-400">Eschoola<span class="text-4xl text-[#191970]">.</span></h1>
+    
+    <nav class="flex-1 flex items-center justify-between">
+      <div class="flex-1"></div>
+      
+      <div class="flex items-center space-x-[40px] mr-[280px] font-semibold" >
+        <a routerLink="/home" class="text-gray-600 hover:text-gray-800">Home</a>
+        <a routerLink="/about" class="text-gray-600 hover:text-gray-800">About Us</a>
+        <a routerLink="/support" class="text-gray-600 hover:text-gray-800">Support</a>
+      </div>
+      
+      <div class="flex-1 flex items-center justify-end space-x-4">
+        <div class="flex items-center space-x-2 font-semibold">
+          <span class="text-gray-600">En</span>
+        </div>
+
+        <div class="font-semibold justify-between flex-1 flex">
+          <a routerLink="/login" class="px-4 py-2 text-customOrange border border-customOrange rounded-full hover:bg-customOrange hover:text-white transition duration-200 ease-in-out">Login</a>
+          <a routerLink="/signup" class="px-4 py-2 text-white bg-customOrange rounded-full hover:bg-customOrange-dark hover:bg-opacity-90 transition duration-200 ease-in-out">Sign in</a>
+          <a routerLink="/signup-teacher" class="px-4 py-2 text-white bg-customOrange rounded-full hover:bg-customOrange-dark hover:bg-opacity-90 transition duration-200 ease-in-out">Become a Teacher</a>
+        </div>
+      </div>
     </nav>
   </div>
+</header>

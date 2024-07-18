@@ -2,11 +2,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { AuthHeaderComponent } from "../../home/auth-header/auth-header.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AuthHeaderComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

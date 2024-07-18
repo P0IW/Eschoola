@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
+import { AuthHeaderComponent } from '../../home/auth-header/auth-header.component';
 
 
 @Component({
   selector: 'app-signupTeacher',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AuthHeaderComponent],
   templateUrl: './signup-teacher.component.html',
   styleUrl: './signup-teacher.component.css'
 })

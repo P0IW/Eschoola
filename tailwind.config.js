@@ -6,7 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        custom: '#faa500',
+        customOrange: {
+          DEFAULT: '#faa500',  // Original color
+          dark: '#e09500',     // Darker shade for hover
+        },
       },
     },
   },

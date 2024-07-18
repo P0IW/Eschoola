@@ -1,8 +1,6 @@
-<header>
-  <h1>Escholla</h1>
-</header>
+<app-auth-header></app-auth-header>
 
-<div class="flex justify-center items-center flex-col h-screen">
+<div class="flex justify-center items-center flex-col h-screen -mt-[85px]">
   <h1 class="text-3xl my-[35px] font-bold" style="font-family: 'Atkinson Hyperlegible', sans-serif">Sign Up as a Teacher</h1>
 
   <form [formGroup]="signupTeacherForm" (ngSubmit)="onSubmit()" class="w-[550px]">
