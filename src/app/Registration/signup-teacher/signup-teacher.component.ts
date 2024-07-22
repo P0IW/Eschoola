@@ -41,6 +41,7 @@ export class SignupTeacherComponent {
   }
 
   categories: string[] = [
+    'Arabic',
     'English',
     'French',
     'Geography',
@@ -49,6 +50,7 @@ export class SignupTeacherComponent {
     'Italian',
     'Mathematic',
     'Philosophy',
+    'Physics',
     'Science',
     'Spanish'
   ].sort();

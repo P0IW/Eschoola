@@ -1,0 +1,76 @@
+<div class="flex justify-center pt-[40px]" style="font-family: 'Quicksand', sans-serif">
+    <div class="relative bg-[#ffa500] bg-opacity-15 border-4 border-[#faa500] border-opacity-35 w-[800px] py-3 px-2 rounded-[35px] flex items-center justify-between overflow-hidden">
+        <button (click)="scroll('left')" class="left-2 z-10 bg-white rounded-full p-3 shadow-md">
+            <span class="text-[#faa500]">&lt;</span>
+        </button>
+
+      <div id="scrollContainer" class="flex space-x-[30px] overflow-hidden" #scrollContainer>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+            <span class="text-2xl mb-1">🇵🇸</span>
+            <span class="text-sm font-semibold whitespace-nowrap">Arabic</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">🇬🇧</span>
+          <span class="text-sm font-semibold whitespace-nowrap">English</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+            <span class="text-2xl mb-1">🇨🇵</span>
+            <span class="text-sm font-semibold whitespace-nowrap">French</span>
+          </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">🗺️</span>
+          <span class="text-sm font-semibold whitespace-nowrap">Geography</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">卐</span>
+          <span class="text-sm font-semibold whitespace-nowrap">German</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">📜</span>
+          <span class="text-sm font-semibold whitespace-nowrap">History</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">🇮🇹</span>
+          <span class="text-sm font-semibold whitespace-nowrap">Italian</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">ℼ</span>
+          <span class="text-sm font-semibold whitespace-nowrap">Mathematic</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">💭</span>
+          <span class="text-sm font-semibold whitespace-nowrap">Philosophy</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+            <span class="text-3xl mb-1">⚛</span>
+            <span class="text-sm font-semibold whitespace-nowrap">Physics</span>
+          </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+          <span class="text-2xl mb-1">🧬</span>
+          <span class="text-sm font-semibold whitespace-nowrap">Science</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-3 py-2 rounded-xl hover:bg-[#faa500] hover:bg-opacity-30 transition duration-300 ease-in-out cursor-pointer">
+            <span class="text-2xl mb-1">🇪🇸</span>
+            <span class="text-sm font-semibold whitespace-nowrap">Spanish</span>
+          </div>
+
+      </div>
+
+      <button (click)="scroll('right')" class="right-2 z-10 bg-white rounded-[35px] p-3 shadow-md">
+        <span class="text-[#faa500]">&gt;</span>
+      </button>
+      
+    </div>
+  </div>
