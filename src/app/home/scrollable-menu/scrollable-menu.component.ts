@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, } from '@angular/core';
 
 
 

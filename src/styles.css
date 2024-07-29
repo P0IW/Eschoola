@@ -1,12 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&family=Niconne&family=Quicksand:wght@300..700&display=swap');
+@import url(https://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&family=Niconne&family=Quicksand:wght@300..700&family=Reenie+Beanie&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     height: 100%;
     margin: 0;
 }
@@ -53,4 +56,18 @@ input[type="checkbox"]:checked {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 2px solid transparent;
   }
+
+  .text-shadow-custom {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 0.1em;
+    -webkit-text-fill-color: #F98125; 
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: white;
+    text-shadow: 
+      8px 8px 0 #F98125,
+      20px 20px 0 #11224D;
+  }
+
   
