@@ -7,27 +7,59 @@
     <!-- Page 1 -->
     
     <div *ngIf="currentPage === 1">
-      <div class="flex flex-col w-full pt-6">
-        <label for="firstName" style="font-family: 'Atkinson Hyperlegible', sans-serif">First name</label>
-        <input type="text" formControlName="firstName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="firstName">
+
+      <h2 class="flex justify-center pb-8 text-[#c0c0c0]">- - - - - - - - - - - - - - Personal Information - - - - - - - - - - - - - -</h2>
+
+      <div class="flex">
+
+        <div class="flex flex-col mr-4 w-full">
+            <label for="firstName">First name</label>
+            <input type="text" formControlName="firstName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="firstName" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+
+            <div *ngIf="signupTeacherForm.get('firstName')?.touched && signupTeacherForm.get('firstName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+                <span *ngIf="signupTeacherForm.get('firstName')?.errors?.['required']">First name is required</span>
+            </div>
+
+        </div>
+
+        <div class="flex flex-col w-full">
+            <label for="lastName">Last name</label>
+            <input type="text" formControlName="lastName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="lastName" style="font-family: 'Atkinson Hyperlegible', sans-serif" placeholder="">
+
+            <div *ngIf="signupTeacherForm.get('lastName')?.touched && signupTeacherForm.get('lastName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
+                <span *ngIf="signupTeacherForm.get('lastName')?.errors?.['required']">Last name is required</span>
+            </div>
+
+        </div>
+
       </div>
 
-      <div *ngIf="signupTeacherForm.get('firstName')?.touched && signupTeacherForm.get('firstName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
-        <span *ngIf="signupTeacherForm.get('firstName')?.errors?.['required']">First name is required</span>
+      <div class="flex flex-col pt-6">
+          <label for="username">Username</label>
+          <input type="text" formControlName="username" name="username" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
       </div>
 
-      <div class="flex flex-col w-full pt-6">
-        <label for="lastName" style="font-family: 'Atkinson Hyperlegible', sans-serif">Last name</label>
-        <input type="text" formControlName="lastName" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="lastName">
+      <div class="flex ">
+        <div class="flex flex-col pt-6 mr-4 w-full">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" formControlName="dateOfBirth" name="dateOfBirth" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+        </div>
+
+        <div class="flex flex-col pt-6 w-full">
+            <label for="gender">Gender</label>
+            <select formControlName="gender" name="gender" class="py-[8px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
       </div>
 
-      <div *ngIf="signupTeacherForm.get('lastName')?.touched && signupTeacherForm.get('lastName')?.invalid" class="text-red-500 mt-1 pl-[40px]">
-        <span *ngIf="signupTeacherForm.get('lastName')?.errors?.['required']">Last name is required</span>
-      </div>
-
-      <div class="flex flex-col w-full pt-6">
-        <label for="dateOfBirth" style="font-family: 'Atkinson Hyperlegible', sans-serif">Date of Birth</label>
-        <input type="date" formControlName="dateOfBirth" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" name="dateOfBirth">
+      <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+        <label>Nationality</label>
+        <select formControlName="nationality" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
+          <option value="">Select your Nationality</option>
+          <option *ngFor="let nationality of nationalities" [value]="nationality">{{ nationality }}</option>
+        </select>
       </div>
 
       <div class="flex flex-col w-full pt-6">
@@ -37,14 +69,6 @@
       
       <div *ngIf="signupTeacherForm.get('phoneNum')?.touched && signupTeacherForm.get('phoneNum')?.invalid" class="text-red-500 mt-1 pl-[40px]">
         <span *ngIf="signupTeacherForm.get('phoneNum')?.errors?.['required']">Phone Number is required</span>
-      </div>
-
-      <div class="flex flex-col pt-6">
-        <label for="gender" style="font-family: 'Atkinson Hyperlegible', sans-serif">Gender</label>
-        <select formControlName="gender" name="gender" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
       </div>
 
       <div class="flex flex-col pt-6">
@@ -79,38 +103,14 @@
     <!-- Page 2 -->
      
     <div *ngIf="currentPage === 2">
-      <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-        <label>Type of Job</label>
-        <select formControlName="typeOfJob" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
-          <option value="">Select your type of job</option>
-          <option value="teacher">Primary School Teacher</option>
-          <option value="instructor">Middle School Teacher</option>
-          <option value="professor">High School Teacher</option>
-          <option value="lecturer">University Lecturer</option>
-          <option value="assistant">Teaching Assistant</option>
-          <option value="master">Master of Education</option>
-        </select>
-      </div>
 
-      <div *ngIf="signupTeacherForm.get('typeOfJob')?.touched && signupTeacherForm.get('typeOfJob')?.invalid" class="text-red-500 mt-1 pl-[40px]">
-        <span *ngIf="signupTeacherForm.get('typeOfJob')?.errors?.['required']">Type of Job is required</span>
-      </div>
+      <h2 class="flex justify-center pb-4 text-[#c0c0c0]">- - - - - - - - - - - - - - Job Information - - - - - - - - - - - - - -</h2>
       
       <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-        <label for="category">Category</label>
-        <select formControlName="category" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
-          <option value="">Select a category</option>
-          <option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </option>
-        </select>
-      </div>
-      
-      <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-        <label>Skills</label>
-        <select formControlName="skills" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
-          <option value="">Select skills</option>
-          <option *ngFor="let skill of skills" [value]="skill">{{ skill }}</option>
+        <label>Language</label>
+        <select formControlName="language" class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full">
+          <option value="">Select a Language</option>
+          <option *ngFor="let language of languages" [value]="language">{{ language  }}</option>
         </select>
       </div>
       
@@ -121,44 +121,59 @@
           <option *ngFor="let exp of experienceLevels" [value]="exp">{{ exp }}</option>
         </select>
       </div>
-      
-      <div class="flex flex-col w-full pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-        <label for="proofFile" class="mb-2">Upload File</label>
-        <div class="relative">
-          <input
-            id="proofFile"
-            type="file"
-            formControlName="proofFile"
-            accept=".pdf, .png, .jpeg, .jpg"
-            class="hidden"
-            (change)="onFileSelected($event)"
-          />
-          <label for="proofFile" class="flex items-center justify-center cursor-pointer border-2 border-gray-300 rounded-md bg-white py-2 px-4 hover:bg-gray-100 transition-colors">
-            Choose File
-          </label>
-        </div>
-        <p class="text-gray-500 mt-1 text-sm">Accepted formats: PDF, PNG, JPEG</p>
-        <div *ngIf="selectedFile" class="mt-2">
-          <span class="text-sm text-green-600">File selected: {{ selectedFile.name }}</span>
-        </div>
+
+      <div class="flex flex-col pt-6">
+        <label>Description</label>
+        <textarea class="py-[6px] rounded-lg bg-gray-50 px-4 border-2 border-gray-200 w-full" placeholder="Talk us about yourself">
+        </textarea> 
       </div>
       
-      <div class="flex justify-between pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+      <div class="flex justify-center pt-6" style="font-family: 'Atkinson Hyperlegible', sans-serif">
         <button type="button" (click)="previousPage()" class="flex items-center bg-[#ffa500] rounded-full text-white text-lg px-4 py-[6px]">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="w-4 h-4 fill-current text-white transform rotate-180">
             <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
           </svg>
           <span class="ml-2">Previous</span>
         </button>
-
-        <button type="submit" class="flex items-center bg-[#ffa500] rounded-full text-white text-lg px-4 py-[6px]" style="font-family: 'Atkinson Hyperlegible', sans-serif">
-          <span class="mr-2">Create my Account</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="w-4 h-4 fill-current text-white">
-            <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-          </svg>
-        </button>
       </div>
 
+      <div class="flex flex-col pt-6 w-full">
+        <label class="flex items-start">
+            <input type="checkbox" formControlName="termsAccepted" name="termsAccepted" class="h-6 w-6 mr-2">
+            <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Yes, I understand and agree to the <span class="text-[#ffa500] underline">Eschoola Terms of Service</span>, including the <span class="text-[#ffa500] underline">User Agreement</span> and <span class="text-[#ffa500] underline">Privacy Policy</span>.</span>
+        </label>
+  
     </div>
+  
+    <div class="flex flex-col pt-6 w-full">
+        <label class="flex items-start">
+            <input type="checkbox" formControlName="newsletterSubscribe" name="newsletterSubscribe" class="h-[17px] w-[17px] mr-2">
+            <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Send me emails with tips on how to find teachers that fit my needs.</span>
+        </label>
+    </div>
+  
+    <div class="flex justify-center mt-6">
+        <button type="submit" class="btn bg-[#ffa500] w-full rounded-xl text-white text-lg px-4 py-[6px]" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+            Create my Account
+        </button>
+    </div>
+  
+    <div class="flex justify-center mt-4">
+        <span style="font-family: 'Atkinson Hyperlegible', sans-serif">Already have an account? <a routerLink="/login" class="text-[#ffa500] underline">Log In</a></span>
+    </div>
+  
+    <div *ngIf="signupTeacherError" class="text-red-500 mt-4">
+        {{ signupTeacherError }}
+    </div>
+  
+    <div *ngIf="signupTeacherForm.get('termsAccepted')?.invalid && signupTeacherForm.get('termsAccepted')?.dirty || signupTeacherForm.get('termsAccepted')?.touched" class="text-red-500 mt-1 pl-[40px]">
+        <span *ngIf="signupTeacherForm.get('terms')?.errors?.['required']">Please accept the Eschoola Terms of Service</span>
+    </div>
+    
+    </div>
+
+    
   </form>
+
+  
 </div>

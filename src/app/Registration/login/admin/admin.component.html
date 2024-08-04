@@ -1,0 +1,53 @@
+<app-auth-header></app-auth-header>
+
+<div class="h-screen flex justify-center items-center -mt-[65px]" style="font-family: 'Atkinson Hyperlegible', sans-serif">
+    <div class="w-[480px] border-[1px] rounded-3xl p-8">
+        <h1 class="text-3xl flex justify-center font-bold mb-6">Admin Login</h1>
+
+        <form *ngIf="!showAdminForm" [formGroup]="adminCodeForm" (ngSubmit)="checkAdminCode()">
+            <div class="mb-4">
+                <input type="password" formControlName="secretCode" placeholder="Enter Admin Code" class="w-full p-2 border rounded">
+            </div>
+            <button type="submit" class="w-full bg-[#ffa500] text-white p-2 rounded">Verify Admin Code</button>
+        </form>
+
+        <form *ngIf="showAdminForm" [formGroup]="adminLoginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <input type="text" formControlName="username" placeholder="Username" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="text" formControlName="firstName" placeholder="First Name" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="text" formControlName="lastName" placeholder="Last Name" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="date" formControlName="dateOfBirth" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="file" formControlName="img" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="text" formControlName="nationality" placeholder="Nationality" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="tel" formControlName="phone" placeholder="Phone" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="email" formControlName="email" placeholder="Email" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <input type="password" formControlName="password" placeholder="Password" class="w-full p-2 border rounded">
+            </div>
+            <button type="submit" class="w-full bg-[#ffa500] text-white p-2 rounded">Login as Admin</button>
+        </form>
+
+        <div *ngIf="loginError" class="text-red-500 mt-2">
+            {{ loginError }}
+        </div>
+
+        <div class="mt-4">
+            <a routerLink="/login" class="text-blue-500 underline">Back to Regular Login</a>
+        </div>
+    </div>
+</div>

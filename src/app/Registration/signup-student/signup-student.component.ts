@@ -12,9 +12,12 @@ import { AuthHeaderComponent } from "../../home/auth-header/auth-header.componen
   templateUrl: './signup-student.component.html',
   styleUrls: ['./signup-student.component.css']
 })
+
 export class SignupStudentComponent {
   signupForm: FormGroup;
   signupError: string = '';
+
+  levels: string[] = [''];
 
   constructor(
     private fb: FormBuilder,

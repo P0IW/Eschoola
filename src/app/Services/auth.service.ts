@@ -25,11 +25,20 @@ export class AuthService {
         this.currentUserSubject.next(user);
       }));
   }
+  
+  loginAdmin(adminData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/admin/login`, adminData)
+      .pipe(tap(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+      }));
+  }
 
   logout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
+  
 
   get currentUserValue() {
     return this.currentUserSubject.value;
