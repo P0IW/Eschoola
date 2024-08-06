@@ -1,0 +1,171 @@
+<div class="absolute mx-[150px] top-[100px] w-[450px] h-full overflow-hidden border-r border-l" style="font-family: 'Quicksand', sans-serif">
+    <div class="relative h-48">
+        <div class="flex items-center mx-6">
+            <!-- Profile Image -->
+            <div class="relative">
+                <img [src]="profileImage" [alt]="" class="w-24 h-24 rounded-full border border-gray-300 shadow-sm">
+                <label for="fileInputProfile" class="absolute bottom-0 right-0 bg-[#F98125] rounded-full p-1 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </label>
+                <input id="fileInput" type="file" (change)="onFileSelected($event)" class="hidden">
+            </div>
+    
+            <!-- Information -->
+            <div class="ml-2 flex-grow">
+                <input [(ngModel)]="name" class="text-lg font-bold w-full focus:outline-none bg-transparent">
+                <div class="flex items-center text-gray-400">
+                    <input [(ngModel)]="birthDate" class="text-sm bg-transparent w-auto border-b border-transparent focus:border-gray-500 focus:outline-none">
+                    <span class="text-sm ml-2">({{ calculateAge(birthDate) }} y.o.)</span>
+                </div>
+            </div>
+
+            <div class="flex items-center text-sm ml-auto">
+                <ng-container *ngIf="!editHourlyRate; else editTemplate">
+                    <button (click)="editHourlyRate = true" class="flex items-center text-gray-400 font-semibold text-sm focus:outline-none">
+                        <span class="text-green-500">DA</span>&nbsp;{{ hourlyRate }}&nbsp;/h
+                    </button>
+                </ng-container>
+                <ng-template #editTemplate>
+                    <div class="flex items-center">
+                        <span class="text-green-500 font-semibold text-lg">DA</span>
+                        <input [(ngModel)]="hourlyRate" type="number" class="w-16 ml-2 text-center focus:outline-none text-gray-400 bg-transparent border-b border-transparent focus:border-green-500" (blur)="editHourlyRate = false">
+                        <span class="text-gray-400 font-semibold text-lg ml-1">/h</span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="flex justify-center">
+            <div class="absolute top-32 w-96 h-px bg-[#9F9D9D]"></div>
+        </div>
+
+        <div class="my-12 mx-6">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-semibold text-gray-700">Skills</h3>
+                <button (click)="toggleSkillModal()" class="border-[#f98125] border-2 rounded-full p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 512 512" transform="matrix(1, 0, 0, 1, 0, 0)">
+                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" fill="#f98125"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span *ngFor="let skill of skills; let i = index" class="bg-gray-100 px-3 py-1 rounded-full text-sm flex items-center border border-gray-300">
+                    {{ skill.name }}
+                    <button (click)="removeSkill(i)" class="ml-2 text-red-500 hover:text-red-600 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </span>
+            </div>
+
+            <!-- Skills Modal -->
+            <div *ngIf="showSkillModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                <div class="bg-white p-6 rounded-2xl w-[750px]">
+                    <h3 class="text-3xl font-semibold mb-4 text-gray-800">Add or Edit Skills</h3>
+                    <div class="mb-4">
+                        <label for="skills" class="font-semibold">Skills</label>
+                    </div>
+                    <textarea [(ngModel)]="newSkills" rows="2" class="w-full resize-none border-2 border-gray-300 rounded-2xl p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder="Enter skills, one per line"></textarea>
+                    <div class="flex justify-end">
+                        <button (click)="addSkills()" class="bg-blue-500 hover:bg-[#F98125] text-white px-4 py-2 rounded mr-2 transition duration-300 ease-in-out">Add</button>
+                        <button (click)="toggleSkillModal()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded transition duration-300 ease-in-out">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center">
+            <div class="absolute top-[360px] w-96 h-px bg-[#9F9D9D]"></div>
+        </div>
+
+        <div class="my-12 mx-6">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-semibold text-gray-700">Certification</h3>
+                <button (click)="toggleSkillModal()" class="border-[#f98125] border-2 rounded-full p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 512 512" transform="matrix(1, 0, 0, 1, 0, 0)">
+                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" fill="#f98125"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span *ngFor="let skill of skills; let i = index" class="bg-gray-100 px-3 py-1 rounded-full text-sm flex items-center border border-gray-300">
+                    {{ newCertName }}
+                    <button (click)="removeSkill(i)" class="ml-2 text-red-500 hover:text-red-600 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </span>
+            </div>
+
+            <!-- Certification Modal -->
+            <div *ngIf="showSkillModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+                <div class="bg-white p-6 rounded-2xl w-[750px] my-8 max-h-[90vh] overflow-y-auto">
+                    <h3 class="text-3xl font-semibold mb-12 text-gray-800">Add s certification</h3>
+                    <div class="mb-4">
+                        <label for="skills" class="font-semibold">Certification name</label>
+                        <input type="text" class="w-full border-2 border-gray-300 rounded-xl p-2 mb-4 mt-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder=""> 
+                    </div>
+                    
+                    <div class="mb-4 mt-8">
+                        <label for="fileInputCertification" class="font-semibold">Certification PDF file</label>
+                        <div class="relative mt-4">
+                            <input type="file" id="fileInputCertification" class="hidden" accept=".pdf" (change)="($event)"/>
+                            <label for="fileInputCertification" class=" border-2 border-gray-300 rounded-xl p-2 cursor-pointer  flex  gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#F98125]" viewBox="0 0 384 512">
+                                    <path d="M64 464c-8.8 0-16-7.2-16-16L48 64c0-8.8 7.2-16 16-16l160 0 0 80c0 17.7 14.3 32 32 32l80 0 0 288c0 8.8-7.2 16-16 16L64 464zM64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-293.5c0-17-6.7-33.3-18.7-45.3L274.7 18.7C262.7 6.7 246.5 0 229.5 0L64 0zm56 256c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24l144 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-144 0z"/>
+                                </svg>
+                                Please select PDF file
+                            </label>
+                        </div>                        
+                    </div>
+                    
+
+                    <div class="mb-4 mt-8">
+                        <label for="skills" class="font-semibold">Provider</label>
+                        <input type="text" class="w-full border-2 border-gray-300 rounded-xl p-2 mb-4 mt-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder=""> 
+                    </div> 
+
+                    <div class="mb-4 mt-8">
+                        <label for="skills" class="font-semibold">Description</label>
+                        <textarea type="text" rows="5" class="w-full border-2 border-gray-300 rounded-xl p-2 mb-4 mt-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder=""></textarea>
+                    </div> 
+
+                    <div class="grid grid-cols-2 gap-24">
+                        <div class="mb-4 mt-8">
+                            <label for="skills" class="font-semibold">Issue date</label>
+                            <input type="date" class="w-full text-sm border-2 border-gray-300 rounded-xl p-2 mt-4">
+                        </div> 
+                        <div class="mb-4 mt-8">
+                            <label for="skills" class="font-semibold">Expiration date (Optional)</label>
+                            <input type="date" class="w-full text-sm border-2 border-gray-300 rounded-xl p-2 mt-4">
+                        </div>
+                    </div>
+
+                    <div class="mb-4 mt-8">
+                        <label for="skills" class="font-semibold">Certification ID (Optional)</label>
+                        <input type="text" class="w-full border-2 border-gray-300 rounded-xl p-2 mb-4 mt-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder="">
+                    </div> 
+
+                    <div class="mb-4 mt-8">
+                        <label for="skills" class="font-semibold">Certification URL (Optional)</label>
+                        <input type="text" class="w-full border-2 border-gray-300 rounded-xl p-2 mb-4 mt-4 focus:outline-none focus:ring-2 focus:ring-[#F98125]" placeholder="">
+                    </div> 
+
+
+                    
+                    <div class="flex justify-end">
+                        <button (click)="addSkills()" class="bg-blue-500 hover:bg-[#F98125] text-white px-4 py-2 rounded mr-2 transition duration-300 ease-in-out">Add</button>
+                        <button (click)="toggleSkillModal()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded transition duration-300 ease-in-out">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

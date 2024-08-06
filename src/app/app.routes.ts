@@ -16,7 +16,8 @@
         { path: 'signup-student', loadComponent: () => import('./Registration/signup-student/signup-student.component').then(m => m.SignupStudentComponent) },
         { path: 'signup/teacher', redirectTo: 'signup-teacher', pathMatch:'full' },
         { path: 'signup/student', redirectTo: 'signup-student', pathMatch: 'full' },
-        { path: 'admin-dashboard', loadComponent: () => import('./Registration/login/admin/admin.component').then(m => m.AdminLoginComponent) },
+        { path: 'admin-login', loadComponent: () => import('./Registration/login/admin/admin.component').then(m => m.AdminLoginComponent) },
+        { path: 'teacher-dashboard', loadComponent: () => import('./Dashboard/dashboard-teacher/dashboard-teacher.component').then(m => m.DashboardTeacherComponent)}
       ]
     },
   ];
