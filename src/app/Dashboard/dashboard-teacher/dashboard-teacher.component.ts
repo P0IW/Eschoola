@@ -1,106 +1,92 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-
-interface Skill {
-  name: string;
-}
-
-
-interface Certification {
-  name: string;
-  link: string;
-}
-
-interface GeneralInfo {
-  financialReward: string;
-  startDate: string;
-}
-
-interface Absence {
-  type: string;
-  used: number;
-  total: number;
-  color: string;
-}
+import { HttpClient } from '@angular/common/http'; // Import HttpClient
 
 @Component({
   selector: 'app-dashboard-teacher',
   standalone: true,
-  imports: [ CommonModule, RouterModule, FormsModule],
+  imports: [ CommonModule, RouterModule,],
   templateUrl: './dashboard-teacher.component.html',
   styleUrl: './dashboard-teacher.component.css'
 })
 export class DashboardTeacherComponent {
-  editHourlyRate: boolean = false;
-  hourlyRate: number = 0;
-  profileImage: string = '';
-  name: string = 'Eschoola Name';
-  birthDate: string = '1Jan, 1999  ';
-  skills: Skill[] = [];
-  newSkills: string = '';
-  showSkillModal: boolean = false;
-  certifications: Certification[] = [];
-  generalInfo: GeneralInfo = { financialReward: '45', startDate: '2023-01-01' };
-  phone: string = '';
-  email: string = '';
-  address: string = '';
+  selectedImage: string | ArrayBuffer | null = null;
+  firstName: string = '';
+  lastName: string = '';
+  nickname: string = '';
+  PDFName: string = '';
+  availableSkills: string[] = []; // List of skills from backend
+  selectedSkills: string[] = []; // Skills selected by user
+  showSkillsModal: boolean = false; // Toggle visibility of modal
 
-  newSkill: string = '';
-  newCertName: string = '';
-  newCertLink: string = '';
+  constructor(private http: HttpClient) {}
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
+  ngOnInit(): void {
+    this.fetchUserData();
+    this.fetchSkills(); // Fetch skills when component initializes
+  }
+
+  fetchUserData(): void {
+    // Example user data fetching
+    this.firstName = 'Test'; // Replace with real data
+    this.lastName = 'Try';   // Replace with real data
+    this.nickname = '@im_testing'; // Replace with real data
+  }
+
+  fetchSkills(): void {
+    // Fetch the list of available skills from the backend
+    this.http.get<string[]>('your-backend-api-url/skills').subscribe(
+      (skills) => {
+        this.availableSkills = skills;
+      },
+      (error) => {
+        console.error('Error fetching skills:', error);
+      }
+    );
+  }
+
+  toggleSkill(skill: string): void {
+    const index = this.selectedSkills.indexOf(skill);
+    if (index === -1) {
+      this.selectedSkills.push(skill);
+    } else {
+      this.selectedSkills.splice(index, 1);
+    }
+  }
+
+  saveSkills(): void {
+    // Save the selected skills to the backend
+    this.http.post('your-backend-api-url/save-skills', { skills: this.selectedSkills }).subscribe(
+      () => {
+        console.log('Skills saved successfully');
+        this.showSkillsModal = false;
+      },
+      (error) => {
+        console.error('Error saving skills:', error);
+      }
+    );
+  }
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+  
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+  
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.profileImage = e.target.result;
-      };
+      reader.onload = () => this.selectedImage = reader.result;
+  
       reader.readAsDataURL(file);
     }
   }
 
-  toggleSkillModal() {
-    this.showSkillModal = !this.showSkillModal;
-    if (!this.showSkillModal) {
-      this.newSkills = ''; // Clear the textarea when closing the modal
+  onPDFSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      this.PDFName = file.name; 
     }
   }
 
-  addSkills() {
-    const skillsArray = this.newSkills.split('\n').filter(skill => skill.trim() !== '');
-    this.skills = [...this.skills, ...skillsArray.map(skill => ({ name: skill.trim() }))];
-    this.toggleSkillModal();
-  }
-
-  removeSkill(index: number) {
-    this.skills.splice(index, 1);
-  }
-
-
-  addCertification() {
-    if (this.newCertName.trim() && this.newCertLink.trim()) {
-      this.certifications.push({ name: this.newCertName.trim(), link: this.newCertLink.trim() });
-      this.newCertName = '';
-      this.newCertLink = '';
-    }
-  }
-
-  removeCertification(index: number) {
-    this.certifications.splice(index, 1);
-  }
-
-  calculateAge(birthDate: string): number {
-    const today = new Date();
-    const birthDateObj = new Date(birthDate);
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const m = today.getMonth() - birthDateObj.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDateObj.getDate())) {
-      age--;
-    }
-    return age;
-  }
+  
 }
