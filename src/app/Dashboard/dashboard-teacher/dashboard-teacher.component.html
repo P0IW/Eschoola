@@ -1,5 +1,5 @@
-<div class="flex justify-center h-screen" style="font-family: 'Quicksand', sans-serif">
-    <div class="relative mx-[150px] my-[100px] w-full border rounded-3xl h-full-minus-margin">
+<div class="flex justify-center " style="font-family: 'Quicksand', sans-serif">
+   <div class="relative mx-[150px] my-[100px] w-full border rounded-3xl">
       <!-- Vertical Line 'Left' -->
       <div class="absolute left-[350px] w-px h-full bg-gray-200"></div>
       <div class="p-6 flex">
@@ -131,7 +131,7 @@
         <div class="relative flex mt-[226px] mb-4 mx-6">
             <div class="flex gap-[105px]">
                 <h3 class="font-bold">Employment History</h3>
-                <button (click)="openCertificationModal()" class="border border-[#f98125] p-2 rounded-full">
+                <button (click)="openEmploymentModal()" class="border border-[#f98125] p-2 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 512 512" transform="matrix(1, 0, 0, 1, 0, 0)">
                         <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" fill="#f98125"/>
                     </svg>
@@ -146,30 +146,60 @@
                     <form [formGroup]="employmentForm" (ngSubmit)="saveEmployment()" class="space-y-4">
                         <div>
                             <label for="name" class="text-gray-700 font-semibold">Workplace</label>
-                            <input id="name" formControlName="name" type="text" class="mt-1 p-2  w-full rounded-xl border border-gray-300">
+                            <input id="name" formControlName="name" type="text" class="mt-1 p-2  w-full rounded-xl border border-gray-300 ">
                         </div>
                         <div>
                             <label for="text" class="text-gray-700 font-semibold">City</label>
-                            <input id="text" formControlName="textarea" rows="5" class="mt-1 p-2  w-full rounded-xl border border-gray-300">
+                            <select id="city" formControlName="city" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                                <option value="" class="text-sm">Select a city</option>
+                                <option *ngFor="let city of cities" [value]="city.en" class="text-sm">{{ city.en }} - {{ city.ar }}</option>
+                              </select>
                         </div>
-                        <div class="flex-1 ">
-                            <label for="month" class="text-gray-700 font-semibold">Select Month</label>
-                                <select id="month" name="month" formControlName="month" class="mt-1 p-2 w-full rounded-xl border border-gray-300">
-                                    From, Month
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
+                        <div class="flex w-full space-x-8">
+                           <div class="flex-1">
+                             <label for="startMonth" class="text-gray-700 font-semibold">Month</label>
+                             <select id="startMonth" formControlName="startMonth" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                               <option value="" class="text-sm">Select a month</option>
+                               <option *ngFor="let month of months" [value]="month.value" class="text-sm">{{ month.name }}</option>
+                             </select>
+                           </div>
+                           <div class="flex-1">
+                             <label for="startYear" class="text-gray-700 font-semibold">Year</label>
+                             <select id="startYear" formControlName="startYear" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                               <option value="" class="text-sm">Select a year</option>
+                               <option *ngFor="let year of years" [value]="year" class="text-sm">{{ year }}</option>
+                             </select>
+                           </div>
                         </div>
+                   
+                        <div *ngIf="!form.get('currentlyWorking')?.value" class="flex w-full space-x-8 mt-4">
+                           <div class="flex-1">
+                             <label for="endMonth" class="text-gray-700 font-semibold">To month</label>
+                             <select id="endMonth" formControlName="endMonth" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                               <option value="" class="text-sm">Select a month</option>
+                               <option *ngFor="let month of months" [value]="month.value" class="text-sm">{{ month.name }}</option>
+                             </select>
+                           </div>
+                           <div class="flex-1">
+                             <label for="endYear" class="text-gray-700 font-semibold">To year</label>
+                             <select id="endYear" formControlName="endYear" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                               <option value="" class="text-sm">Select a year</option>
+                               <option *ngFor="let year of years" [value]="year" class="text-sm">{{ year }}</option>
+                             </select>
+                           </div>
+                        </div>
+                   
+                        <div class="flex space-x-4 mt-4">
+                           <input type="checkbox" formControlName="currentlyWorking" class="w-5 h-5">
+                           <label class="font-medium">I'm currently working here</label>
+                        </div>
+
+                        <div>
+                           <label for="textarea" class="text-gray-700 font-semibold">Description (Optional)</label>
+                           <textarea id="textarea" formControlName="textarea" rows="5" class="mt-1 p-2  w-full rounded-xl border border-gray-300"></textarea>
+                        </div>
+
+
                         <div class="flex justify-end space-x-4 mt-6">
                             <button type="button" (click)="closeEmploymentModal()" class="px-4 py-2 text-[#f98125]">
                                 Cancel
@@ -180,13 +210,89 @@
                         </div>
                     </form>
                 </div>
-              </div>
+            </div>
     
               <div class="absolute w-[300px] h-px top-[240px] bg-gray-100"></div> <!-- Separated Line --> 
         </div>
 
-    </div>
+        <div class="relative flex mt-[226px] mb-52 mx-6">
+         <div class="flex gap-[186px]">
+             <h3 class="font-bold">Education</h3>
+             <button (click)="openEducationModal()" class="border border-[#f98125] p-2 rounded-full">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 512 512" transform="matrix(1, 0, 0, 1, 0, 0)">
+                     <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" fill="#f98125"/>
+                 </svg>
+             </button>
+ 
+         </div>
+ 
+         <!-- Education Modal -->
+         <div *ngIf="showEducationModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full flex justify-center items-center">
+             <div class="relative bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
+                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Add Education</h2>
+                 <form [formGroup]="educationForm" (ngSubmit)="saveEducation()" class="space-y-4">
+                     <div>
+                         <label for="name" class="text-gray-700 font-semibold">School</label>
+                         <input id="name" formControlName="name" type="text" class="mt-1 p-2  w-full rounded-xl border border-gray-300 placeholder:text-sm" placeholder="Ex: University of Constantine3 -Salah Boubnider-">
+                     </div>
+                     <div class="flex w-full space-x-8">
+                        <div class="flex-1">
+                           <label for="fromYear" class="text-gray-700 font-semibold">Dates Attended (Optional)</label>
+                           <div class="flex space-x-4 mt-1">
+                             <div class="flex-1">
+                               <select id="fromYear" formControlName="fromYear" class="p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                                 <option value="" class="text-sm">From</option>
+                                 <option *ngFor="let year of years" [value]="year" class="text-sm">{{ year }}</option>
+                               </select>
+                             </div>
+                             <div class="flex-1">
+                               <select id="toYear" formControlName="toYear" class="p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                                 <option value="" class="text-sm">To (or expected graduated year)</option>
+                                 <option *ngFor="let year of years" [value]="year" class="text-sm">{{ year }}</option>
+                               </select>
+                             </div>
+                           </div>
+                         </div>
+                     </div>
+
+                     <div>
+                        <label for="degree" class="text-gray-700 font-semibold">Degree (Optional)</label>
+                        <select id="degree" formControlName="degree" class="mt-1 p-2 w-full rounded-xl text-sm border border-gray-300 bg-transparent">
+                          <option value="" class="text-sm">Select a degree</option>
+                          <option *ngFor="let degree of degrees" [value]="degree.id" class="text-sm">{{ degree.name }}</option>
+                        </select>
+                     </div>
+
+                  <div>
+                     <label for="text" class="text-gray-700 font-semibold">Area of Study (Optional) </label>
+                     <input type="text" class="mt-1 p-2 w-full rounded-xl border border-gray-300 placeholder:text-sm" placeholder="Ex: Medicine">
+                  </div>
+
+                     <div>
+                        <label for="textarea" class="text-gray-700 font-semibold">Description (Optional)</label>
+                        <textarea id="textarea" formControlName="textarea" rows="5" class="mt-1 p-2  w-full rounded-xl border border-gray-300"></textarea>
+                     </div>
+
+
+                     <div class="flex justify-end space-x-4 mt-6">
+                         <button type="button" (click)="closeEducationModal()" class="px-4 py-2 text-[#f98125]">
+                             Cancel
+                         </button>
+                         <button type="submit" class="px-4 py-2 bg-[#f98125] text-white rounded-full hover:bg-[#fb9f50]">
+                             Save
+                         </button>
+                     </div>
+                 </form>
+             </div>
+         </div>
+      </div>
+  </div>
+
+   </div>
+
+
 </div>
+
     
 
 

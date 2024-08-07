@@ -1,13 +1,23 @@
   import { CommonModule } from '@angular/common';
   import { Component, Input } from '@angular/core';
   import { RouterModule } from '@angular/router';
-  import { HttpClient } from '@angular/common/http';
+  import { HttpClient, HttpClientModule } from '@angular/common/http';
   import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+  interface City {
+    en: string;
+    ar: string;
+  }
+
+  interface Degree {
+   id: string;
+   name: string;
+ }
 
   @Component({
     selector: 'app-dashboard-teacher',
     standalone: true,
-    imports: [ CommonModule, RouterModule, ReactiveFormsModule],
+    imports: [ CommonModule, RouterModule, ReactiveFormsModule, HttpClientModule],
     templateUrl: './dashboard-teacher.component.html',
     styleUrl: './dashboard-teacher.component.css'
   })
@@ -27,6 +37,86 @@
     employmentForm: FormGroup;
     certifications: any[] = [];
     years: number[] = [];
+    showAdditionalFields: boolean = false;
+    showEducationModal: boolean = false;
+    educationForm: FormGroup;
+    degrees: Degree[] = [];
+
+    cities: City[] = [
+      { en: 'Algiers', ar: 'الجزائر' },
+    { en: 'Oran', ar: 'وهران' },
+    { en: 'Constantine', ar: 'قسنطينة' },
+    { en: 'Annaba', ar: 'عنابة' },
+    { en: 'Blida', ar: 'البليدة' },
+    { en: 'Batna', ar: 'باتنة' },
+    { en: 'Setif', ar: 'سطيف' },
+    { en: 'Sidi Bel Abbès', ar: 'سيدي بلعباس' },
+    { en: 'Béjaïa', ar: 'بجاية' },
+    { en: 'Tlemcen', ar: 'تلمسان' },
+    { en: 'Tizi Ouzou', ar: 'تيزي وزو' },
+    { en: 'Béchar', ar: 'بشار' },
+    { en: 'Mostaganem', ar: 'مستغانم' },
+    { en: 'Skikda', ar: 'سكيكدة' },
+    { en: 'Tiaret', ar: 'تيارت' },
+    { en: 'Ghardaïa', ar: 'غرداية' },
+    { en: 'Jijel', ar: 'جيجل' },
+    { en: 'Laghouat', ar: 'الأغواط' },
+    { en: 'Biskra', ar: 'بسكرة' },
+    { en: 'M\'Sila', ar: 'المسيلة' },
+    { en: 'Bouira', ar: 'البويرة' },
+    { en: 'Adrar', ar: 'أدرار' },
+    { en: 'Médéa', ar: 'المدية' },
+    { en: 'El Oued', ar: 'الوادي' },
+    { en: 'Ain Defla', ar: 'عين الدفلى' },
+    { en: 'Relizane', ar: 'غليزان' },
+    { en: 'Bordj Bou Arréridj', ar: 'برج بوعريريج' },
+    { en: 'El Tarf', ar: 'الطارف' },
+    { en: 'Tipaza', ar: 'تيبازة' },
+    { en: 'Mila', ar: 'ميلة' },
+    { en: 'Saïda', ar: 'سعيدة' },
+    { en: 'Naama', ar: 'النعامة' },
+    { en: 'Tindouf', ar: 'تندوف' },
+    { en: 'Khenchela', ar: 'خنشلة' },
+    { en: 'Souk Ahras', ar: 'سوق أهراس' },
+    { en: 'Ain Temouchent', ar: 'عين تيموشنت' },
+    { en: 'Guelma', ar: 'قالمة' },
+    { en: 'Mascara', ar: 'معسكر' },
+    { en: 'Tissemsilt', ar: 'تيسمسيلت' },
+    { en: 'Ouargla', ar: 'ورقلة' },
+    { en: 'Illizi', ar: 'إليزي' },
+    { en: 'Tamanrasset', ar: 'تمنراست' },
+    { en: 'Chlef', ar: 'الشلف' },
+    { en: 'Boumerdès', ar: 'بومرداس' },
+    { en: 'El Bayadh', ar: 'البيض' },
+    { en: 'Djelfa', ar: 'الجلفة' },
+    { en: 'Oum El Bouaghi', ar: 'أم البواقي' },
+    { en: 'Tebessa', ar: 'تبسة' },
+    { en: 'Ain Sefra', ar: 'عين الصفراء' },
+    { en: 'Tarfaya', ar: 'طرفاية' },
+    { en: 'Laghouat', ar: 'الأغواط' },
+    { en: "M'Sila", ar: 'المسيلة' },
+    { en: 'Bordj Bou Arreridj', ar: 'برج بوعريريج' },
+    { en: 'El Tarf', ar: 'الطارف' },
+    { en: 'Tizi Ouzou', ar: 'تيزي وزو' },
+    { en: 'Tlemcen', ar: 'تلمسان' },
+    { en: 'Sidi Bel Abbès', ar: 'سيدي بلعباس' },
+    { en: 'Sidi Bel Abbès ', ar: 'بشار' },
+    ];
+
+    months = [
+      { value: '01', name: 'January' },
+      { value: '02', name: 'February' },
+      { value: '03', name: 'March' },
+      { value: '04', name: 'April' },
+      { value: '05', name: 'May' },
+      { value: '06', name: 'June' },
+      { value: '07', name: 'July' },
+      { value: '08', name: 'August' },
+      { value: '09', name: 'September' },
+      { value: '10', name: 'October' },
+      { value: '11', name: 'November' },
+      { value: '12', name: 'December' },
+    ];
 
     constructor(private http: HttpClient, private fb: FormBuilder) {
       this.certificationForm = this.fb.group({
@@ -38,24 +128,37 @@
       this.employmentForm = this.fb.group({})
 
       this.form = this.fb.group({
+        city: [''],
         month: [''],
-        year: ['']
+        year: [''],
+        degree: ['']
+        
       });
+      this.form = this.fb.group({
+         startMonth: [''],
+         startYear: [''],
+         endMonth: [''],
+         endYear: [''],
+         currentlyWorking: [false]
+       });
+      this.educationForm = this.fb.group({});
     }
 
     ngOnInit(): void {
       this.fetchUserData();
       this.fetchSkills(); 
       this.fetchCertifications();
-      this.form = this.fb.group({
-        month: [''],
-        year: ['']
+      this.generateYears();
+      this.employmentForm.get('currentlyWorking')?.valueChanges.subscribe(value => {
+         if (value) {
+         this.employmentForm.get('endMonth')?.disable();
+         this.employmentForm.get('endYear')?.disable();
+         } else {
+         this.employmentForm.get('endMonth')?.enable();
+         this.employmentForm.get('endYear')?.enable();
+         }
       });
-
-      const currentYear = new Date().getFullYear();
-      for (let i = currentYear; i >= 1900; i--) {
-        this.years.push(i);
-      }
+      this.fetchDegrees();
     }
 
     fetchUserData(): void {
@@ -207,6 +310,65 @@
         );
         this.closeEmploymentModal();
       }
+    }
+
+    // Year Calculation
+    generateYears(): void {
+      const currentYear = new Date().getFullYear();
+      const startYear = 1900;
+      for (let year = currentYear; year >= startYear; year--) {
+        this.years.push(year);
+      }
+    }
+
+   // Education Modal
+   openEducationModal(): void {
+      this.showEducationModal = true;
+   }
+         
+   closeEducationModal(): void {
+      this.showEducationModal = false;
+      this.educationForm.reset();
+   }
+         
+   onEducationFileSelected(event: Event): void {
+      const input = event.target as HTMLInputElement;
+         if (input.files && input.files[0]) {
+            const file = input.files[0];
+            this.educationForm.patchValue({ file: file });
+         }
+   }
+         
+   saveEducation(): void {
+      if (this.educationForm.valid) {
+         const formData = new FormData();
+         Object.keys(this.educationForm.value).forEach(key => {
+            formData.append(key, this.educationForm.value[key]);
+         });
+                 
+         console.log('Education data:', this.educationForm.value);
+         this.http.post('backend-api-url/save-education', this.educationForm.value).subscribe(
+            () => {
+               console.log('Education saved successfully');
+               this.closeEducationModal();
+            },
+            (error) => {
+               console.error('Error saving education:', error);
+            }
+         );
+         this.closeEducationModal();
+      }
+   }
+
+   fetchDegrees(): void {
+      this.http.get<Degree[]>('API_URL/degrees').subscribe(
+        (data) => {
+          this.degrees = data;
+        },
+        (error) => {
+          console.error('Error fetching degrees:', error);
+        }
+      );
     }
 
   }
