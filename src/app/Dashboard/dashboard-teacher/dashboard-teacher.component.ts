@@ -59,7 +59,6 @@
     }
 
     fetchUserData(): void {
-      // Example user data fetching
       this.firstName = 'Test';
       this.lastName = 'Try';   
       this.nickname = '@im_testing';
@@ -87,10 +86,9 @@
     }
 
       // methods for Skills
-
     fetchSkills(): void {
       
-      this.http.get<string[]>('your-backend-api-url/skills').subscribe(
+      this.http.get<string[]>('backend-api-url/skills').subscribe(
         (skills) => {
           this.availableSkills = skills;
         },
@@ -110,7 +108,7 @@
     }
 
     saveSkills(): void {
-      this.http.post('your-backend-api-url/save-skills', { skills: this.selectedSkills }).subscribe(
+      this.http.post('backend-api-url/save-skills', { skills: this.selectedSkills }).subscribe(
         () => {
           console.log('Skills saved successfully');
           this.showSkillsModal = false;
@@ -147,7 +145,7 @@
         });
         
         console.log('Certification data:', this.certificationForm.value);
-        this.http.post('your-backend-api-url/save-certification', this.certificationForm.value).subscribe(
+        this.http.post('backend-api-url/save-certification', this.certificationForm.value).subscribe(
           () => {
             console.log('Certification saved successfully');
             this.closeCertificationModal();
@@ -162,7 +160,7 @@
 
     // fetch certification
     fetchCertifications(): void {
-      this.http.get<any[]>('your-backend-api-url/certifications').subscribe(
+      this.http.get<any[]>('backend-api-url/certifications').subscribe(
         (certifications) => {
           this.certifications = certifications;
         },
